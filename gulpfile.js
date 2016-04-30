@@ -51,7 +51,6 @@ var project 	 = 'projectname', // Project name, used for build zip.
 		rename       = require('gulp-rename'),
 		concat       = require('gulp-concat'),
 		notify       = require('gulp-notify'),
-		cmq          = require('gulp-combine-media-queries'),
 		runSequence  = require('gulp-run-sequence'),
 		sass         = require('gulp-sass'),
 		plugins      = require('gulp-load-plugins')({ camelize: true }),
@@ -123,7 +122,6 @@ gulp.task('styles', function () {
 				.pipe(plumber.stop())
 				.pipe(gulp.dest('./'))
 				.pipe(filter('**/*.css')) // Filtering stream to only css files
-				.pipe(cmq()) // Combines Media Queries
 				.pipe(reload({stream:true})) // Inject Styles when style file is created
 				.pipe(notify({ message: 'Styles task complete', onLast: true }));
 });

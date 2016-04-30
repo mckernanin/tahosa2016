@@ -49,4 +49,4 @@ class TahosaLodgeTheme {
 	}
 }
 
-new Wimachtendienk();
+new TahosaLodgeTheme();

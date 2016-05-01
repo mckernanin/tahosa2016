@@ -9,6 +9,7 @@ class TahosaLodgeTheme {
 		add_filter( 'upload_mimes', array( $this, 'mime_types' ) );
 		add_filter( 'body_class',   array( $this, 'add_slug_body_class' ) );
 		add_action( 'send_headers', array( $this, 'custom_headers' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'typekit' ) );
 
 		$this->roots_support();
 	}
@@ -43,9 +44,9 @@ class TahosaLodgeTheme {
 		add_theme_support( 'soil-relative-urls' );
 	}
 
-	public function theme_typekit() {
-		wp_enqueue_script( 'theme_typekit', 'https://use.typekit.net/xbk1ivk.js' );
-		wp_inline_script( 'try{Typekit.load({ async: true });}catch(e){}' );
+	public function typekit() {
+		wp_enqueue_script( 'tahosa_typekit', 'https://use.typekit.net/xbk1ivk.js', array(), '1.0' );
+		wp_add_inline_script( 'tahosa_typekit', 'try{Typekit.load({ async: true });}catch(e){}' );
 	}
 }
 

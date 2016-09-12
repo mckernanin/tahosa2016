@@ -60,12 +60,30 @@ class TahosaLodgeTheme {
 	    return $new_input;
 	}
 
-	function vigil_position_type( $input_info, $field, $column, $value, $form_id ) {
+	public function vigil_position_type( $input_info, $field, $column, $value, $form_id ) {
 		$data = array(
 			'type'    => 'select',
-			'choices' => 'Unit,Chapter,Lodge,Section,Other'
+			'choices' => 'Unit,Chapter,Lodge,Section,District,Council,Other'
 		);
 	    return $data;
+	}
+
+	public function vigil_eligible_validation() {
+		$current_page = rgpost( 'gform_source_page_number_' . $form['id'] ) ? rgpost( 'gform_source_page_number_' . $form['id'] ) : 1;
+		foreach( $form['fields'] as &$field ) {
+			if ( strpos( $field->cssClass, 'nominee-name' ) === false ) {
+			    continue;
+			}
+
+			$field_page = $field->pageNumber;
+			$is_hidden = RGFormsModel::is_field_hidden( $form, $field, array() );
+			if ( $field_page != $current_page || $is_hidden ) {
+			    continue;
+			}
+
+			$field_value = rgpost( "input_{$field['id']}" );
+			$is_valid = is_vin( $field_value );
+		}
 	}
 }
 

@@ -8,6 +8,8 @@ class TahosaLodgeTheme {
 
 		add_filter( 'upload_mimes', array( $this, 'mime_types' ) );
 		add_filter( 'body_class',   array( $this, 'add_slug_body_class' ) );
+		add_filter( 'gform_column_input_content_18_14_4', array( $this, 'vigil_position_notes_field' ), 10, 6 );
+
 		add_action( 'send_headers', array( $this, 'custom_headers' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'typekit' ) );
 
@@ -47,6 +49,14 @@ class TahosaLodgeTheme {
 	public function typekit() {
 		wp_enqueue_script( 'tahosa_typekit', 'https://use.typekit.net/xbk1ivk.js', array(), '1.0' );
 		wp_add_inline_script( 'tahosa_typekit', 'try{Typekit.load({ async: true });}catch(e){}' );
+	}
+
+	public function vigil_position_notes_field( $input, $input_info, $field, $text, $value, $form_id ) {
+	    //build field name, must match List field syntax to be processed correctly
+	    $input_field_name = 'input_' . $field->id . '[]';
+	    $tabindex         = GFCommon::get_tabindex();
+	    $new_input        = '<textarea name="' . $input_field_name . '" ' . $tabindex . ' class="textarea medium" cols="50" rows="10">' . $value . '</textarea>';
+	    return $new_input;
 	}
 }
 

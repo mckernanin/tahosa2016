@@ -9,6 +9,7 @@ class TahosaLodgeTheme {
 		add_filter( 'upload_mimes', array( $this, 'mime_types' ) );
 		add_filter( 'body_class',   array( $this, 'add_slug_body_class' ) );
 		add_filter( 'gform_column_input_content_18_14_4', array( $this, 'vigil_position_notes_field' ), 10, 6 );
+		add_filter( 'gform_column_input_content_18_14_1', array( $this, 'vigil_position_type' ), 10, 6 );
 
 		add_action( 'send_headers', array( $this, 'custom_headers' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'typekit' ) );
@@ -57,6 +58,14 @@ class TahosaLodgeTheme {
 	    $tabindex         = GFCommon::get_tabindex();
 	    $new_input        = '<textarea name="' . $input_field_name . '" ' . $tabindex . ' class="textarea medium" cols="50" rows="10">' . $value . '</textarea>';
 	    return $new_input;
+	}
+
+	function vigil_position_type( $input_info, $field, $column, $value, $form_id ) {
+		$data = array(
+			'type'    => 'select',
+			'choices' => 'Unit,Chapter,Lodge,Section,Other'
+		);
+	    return $data;
 	}
 }
 

@@ -5,3 +5,13 @@
 .gform_wrapper table.gfield_list, .gform_wrapper table.gfield_list caption, .gform_wrapper table.gfield_list tbody, .gform_wrapper table.gfield_list td, .gform_wrapper table.gfield_list tfoot, .gform_wrapper table.gfield_list th, .gform_wrapper table.gfield_list thead, .gform_wrapper table.gfield_list tr {
 	vertical-align: top !important;
 }
+
+.gform_wrapper .gfield_list_cell textarea.medium {
+	max-height: 2em;
+	transition: none;
+
+	&:focus,
+	&:active {
+		max-height: 100%;
+	}
+}
